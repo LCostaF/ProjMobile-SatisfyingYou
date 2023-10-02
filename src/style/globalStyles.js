@@ -32,7 +32,6 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 33,
         fontFamily: 'AveriaLibre-Bold',
-        fontWeight: 'bold'
     },
 
     error: {

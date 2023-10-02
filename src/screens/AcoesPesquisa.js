@@ -1,7 +1,8 @@
 import { Image, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { globalStyles } from "../style/globalStyles";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const AcoesPesquisa = () => {
+const AcoesPesquisa = (props) => {
 
     const handleModificarPress = () => {
         // Ação a ser executada quando "Modificar" for clicado
@@ -9,32 +10,35 @@ const AcoesPesquisa = () => {
         // Você pode adicionar mais lógica aqui, como navegar para outra tela.
       };
 
+    const goToModificar = () => {
+        props.navigation.navigate('Modificar pesquisa')
+    };
+
+    const goToColeta = () => {
+        props.navigation.navigate('Coleta')
+    };
+
+    const goToRelatorio = () => {
+        props.navigation.navigate('Relatório')
+    };
+
     return (
         <View style={styles.root}>
             <View style={styles.container}>
 
-                <TouchableOpacity style={[globalStyles.card, styles.backgroundCard]} onPress={handleModificarPress}>
-                    <Image
-                        style={styles.image}
-                        source={require("../../assets/images/VectorModificar.png")}
-                    />
+                <TouchableOpacity style={[globalStyles.card, styles.backgroundCard]} onPress={goToModificar}>
+                    <Icon name="edit-document" size={80} color="#ffffff" />
                     <Text style={styles.title}>Modificar</Text>
                 </TouchableOpacity>
                 
                 
-                <TouchableOpacity style={[globalStyles.card, styles.backgroundCard]} onPress={handleModificarPress}>
-                    <Image 
-                        style={styles.image}
-                        source={require('../../assets/images/VectorColetarDados.png')}
-                    />
+                <TouchableOpacity style={[globalStyles.card, styles.backgroundCard]} onPress={goToColeta}>
+                    <Icon name="library-add-check" size={80} color="#ffffff" />
                     <Text style={styles.title}>Coletar dados</Text>
                 </TouchableOpacity>
             
-                <TouchableOpacity style={[globalStyles.card, styles.backgroundCard]} onPress={handleModificarPress}>
-                    <Image 
-                        style={styles.image}
-                        source={require('../../assets/images/VectorRelatorio.png')}
-                    />
+                <TouchableOpacity style={[globalStyles.card, styles.backgroundCard]} onPress={goToRelatorio}>
+                    <Icon name="donut-large" size={80} color="#ffffff" />
                     <Text style={styles.title}>Relatório</Text>
                 </TouchableOpacity>
             </View>

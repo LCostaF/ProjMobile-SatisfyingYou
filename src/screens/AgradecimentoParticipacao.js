@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { globalStyles } from '../style/globalStyles';
 

@@ -1,6 +1,5 @@
 //Importação
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
-import { globalStyles } from "../style/globalStyles";
 
 //Definição da função do componente
 const Botao = (props) => {

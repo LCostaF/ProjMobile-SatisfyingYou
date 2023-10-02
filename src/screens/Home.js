@@ -18,14 +18,17 @@ const Home = (props) => {
         props.navigation.navigate('Carnaval')
     };
 
+    const goToNovaPesquisa = () => {
+        props.navigation.navigate('Nova pesquisa')
+    }
+
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
-          headerTitle: '', // Remove the title from the header
+          headerTitle: '',
           headerStyle: {backgroundColor: '#2B1D62'},
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => {
-                // Open the drawer when the menu icon is pressed
                 props.navigation.openDrawer();
               }}
             >
@@ -59,7 +62,7 @@ const Home = (props) => {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Botao texto="NOVA PESQUISA"/>
+                    <Botao texto="NOVA PESQUISA" funcao={goToNovaPesquisa} />
                 </View>
             </View>
         </View>

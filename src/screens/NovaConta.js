@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet  } from 'react-native';
-
 import { globalStyles } from '../style/globalStyles';
-
 import Botao from '../components/Botao';
 import Input from '../components/Input';
-
 import { validateEmail } from '../validation/validateEmail ';
 
 const NovaConta = (props) => {
@@ -34,7 +31,7 @@ const NovaConta = (props) => {
   };
 
   const goToLogin = () => {
-    props.navigation.navigate('Carnaval')
+    props.navigation.navigate('Login')
   }
 
   return (
@@ -75,7 +72,7 @@ const NovaConta = (props) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <Botao texto="CADASTRAR"/>
+          <Botao texto="CADASTRAR" funcao={goToLogin} />
         </View>  
       </View>
     </View>
