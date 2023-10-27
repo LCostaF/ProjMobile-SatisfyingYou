@@ -10,6 +10,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { validateEmail } from '../validation/validateEmail ';
 
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth_mod } from '../config/firebase';
+
 //Definição
 const Login = (props) => {
     
@@ -47,6 +50,17 @@ const Login = (props) => {
         props.navigation.navigate('Recuperação de senha')
     };
 
+    const autenticarUsuario = () => {
+        signInWithEmailAndPassword(auth_mod, email, password)
+            .then((userLogged) => {
+                console.log("Usuário autenticado com sucesso: " + JSON.stringify(userLogged));
+                goToDrawer();
+            })
+            .catch((erro) => {
+                console.log("Falha ao autenticar usuario: " + JSON.stringify(erro));
+            })
+    }
+
     return (
         <View style={globalStyles.root}>
             <View style={styles.containerLogin}>
@@ -80,7 +94,7 @@ const Login = (props) => {
                 </View>
 
                 <View style={styles.containerEntrar}>
-                    <Botao texto="Entrar" funcao={goToDrawer}/>
+                    <Botao texto="Entrar" funcao={autenticarUsuario}/>
                 </View>
 
                 <View style={styles.containerCriarEsqueceu}>

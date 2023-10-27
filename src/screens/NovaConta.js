@@ -5,6 +5,9 @@ import Botao from '../components/Botao';
 import Input from '../components/Input';
 import { validateEmail } from '../validation/validateEmail ';
 
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth_mod } from '../config/firebase';
+
 const NovaConta = (props) => {
 
   const [email, setEmail] = useState('');
@@ -32,6 +35,21 @@ const NovaConta = (props) => {
 
   const goToLogin = () => {
     props.navigation.navigate('Login')
+  }
+
+  const cadastrarUsuario = () => {
+    if(validateEmail(email) && (password === confirmPassword) ) {
+      createUserWithEmailAndPassword(auth_mod, email, password)
+        .then((contaCriada) => { 
+          console.log("User criado com sucesso: " + JSON.stringify(contaCriada));
+          goToLogin();
+        })
+        .catch((erro) => {
+          console.log("Erro ao criar usuario: " + JSON.stringify(erro));
+        })
+    } else {
+      setErrorMessage('AAAAAAAAAAAAAAA');
+    }
   }
 
   return (
@@ -72,7 +90,7 @@ const NovaConta = (props) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <Botao texto="CADASTRAR" funcao={goToLogin} />
+          <Botao texto="CADASTRAR" funcao={cadastrarUsuario} />
         </View>  
       </View>
     </View>

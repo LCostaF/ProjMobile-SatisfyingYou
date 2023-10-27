@@ -4,6 +4,8 @@ import { useState } from "react";
 import Botao from '../components/Botao';
 import Input from '../components/Input';
 import { validateEmail } from '../validation/validateEmail ';
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth_mod } from "../config/firebase";
 
 //Definição
 const RecuperarSenha = (props) => {
@@ -28,6 +30,16 @@ const RecuperarSenha = (props) => {
     props.navigation.navigate('Login')
   };
 
+  const recoverPassword = () => {
+    sendPasswordResetEmail(auth_mod, txtEmail)
+      .then(() => {
+        console.log("Email de redefinição enviado com sucesso, verifique sua caixa de entrada");
+        goToLogin();
+      })
+      .catch((erro) => {
+        console.log("Falha no envio do email: " + JSON.stringify(erro));
+      })
+  }
 
   return(
       <View style={estilos.root}>
@@ -40,7 +52,7 @@ const RecuperarSenha = (props) => {
           }} />
           <Text style={estilos.erro}>{txtErro}</Text>
 
-          <Botao texto="RECUPERAR" funcao={goToLogin}/>
+          <Botao texto="RECUPERAR" funcao={recoverPassword}/>
 
         </View>
 
