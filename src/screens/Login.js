@@ -13,12 +13,17 @@ import { validateEmail } from '../validation/validateEmail ';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth_mod } from '../config/firebase';
 
+import { useDispatch } from 'react-redux';
+import { reducerSetLogin } from '../redux/loginSlice';
+
 //Definição
 const Login = (props) => {
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('');
+
+    const dispatch = useDispatch();
 
     const handleEmailChange = (inputEmail) => {
         const isValidEmail = validateEmail(inputEmail);
@@ -54,6 +59,7 @@ const Login = (props) => {
         signInWithEmailAndPassword(auth_mod, email, password)
             .then((userLogged) => {
                 console.log("Usuário autenticado com sucesso: " + JSON.stringify(userLogged));
+                dispatch(reducerSetLogin({email: email}));
                 goToDrawer();
             })
             .catch((erro) => {

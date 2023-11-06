@@ -3,12 +3,17 @@ import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navi
 import { globalStyles } from '../style/globalStyles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { useSelector } from 'react-redux';
+
 const CustomDrawer = (props) => {
+
+    const email = useSelector((state) => state.login.email)
+
     return (
         <View style={styles.drawerContainer}>
             <DrawerContentScrollView {...props} >
                 <View style={styles.userEmail}>
-                    <Text style={globalStyles.label}>usuario@dominio.com</Text>
+                    <Text style={globalStyles.label}>{email}</Text>
                 </View>
                 <DrawerItemList {...props} />
                 <DrawerItem 
