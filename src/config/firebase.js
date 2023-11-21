@@ -1,17 +1,18 @@
 import { initializeApp } from "firebase/app";
+import { initializeFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAc6LUCYfYYxBhhRqFRwokoGV3BHF6byCs",
-  authDomain: "satisfyingyoumobile.firebaseapp.com",
-  projectId: "satisfyingyoumobile",
-  storageBucket: "satisfyingyoumobile.appspot.com",
-  messagingSenderId: "959262201925",
-  appId: "1:959262201925:web:dac14bb2c04e8456cd6b2c"
+  apiKey: "AIzaSyCUWSogU014G2fcFw8RjUOC0MVWnIFimZc",
+  authDomain: "mobileprojeto-f802d.firebaseapp.com",
+  projectId: "mobileprojeto-f802d",
+  storageBucket: "mobileprojeto-f802d.appspot.com",
+  messagingSenderId: "77702819912",
+  appId: "1:77702819912:web:497155a5cd19e78361a87d"
 };
 
 const app = initializeApp(firebaseConfig);
-
+const db = initializeFirestore(app, {experimentalForceLongPolling: true});
 const auth_mod = getAuth(app);
 
-export { auth_mod }
+export { db, auth_mod };

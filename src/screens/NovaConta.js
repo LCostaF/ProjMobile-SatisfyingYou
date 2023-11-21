@@ -39,8 +39,8 @@ const NovaConta = (props) => {
 
   const cadastrarUsuario = () => {
     if(validateEmail(email) && (password === confirmPassword) ) {
-      createUserWithEmailAndPassword(auth_mod, email, password)
-        .then((contaCriada) => { 
+      createUserWithEmailAndPassword(auth_mod, email, password) //Chamada Assíncrona: Não tem prazo especifíco para acabar, continua a executar o código. Para tratar o retorno da função usa o then
+        .then((contaCriada) => { //Função de call back
           console.log("User criado com sucesso: " + JSON.stringify(contaCriada));
           goToLogin();
         })

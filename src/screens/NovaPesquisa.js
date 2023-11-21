@@ -3,23 +3,44 @@ import { View, Text, Image, Modal, TouchableOpacity, StyleSheet } from 'react-na
 import { globalStyles } from '../style/globalStyles';
 import Botao from '../components/Botao';
 import Input from '../components/Input';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../config/firebase';
+
+const pesquisaCollection = collection(db, "pesquisa");
 
 const NovaPesquisa = (props) => {
   const [nome, setNome] = useState('');
   const [data, setData] = useState('');
+  //const [imagem, setImagem] = useState('');
+
   const [errorMessageNome, setErrorMessageNome] = useState('');
   const [errorMessageData, setErrorMessageData] = useState('');
 
+  const addPesquisa = () => {
+    addDoc(pesquisaCollection, {
+      nome: nome,
+      data: data,
+      //imagem: image,
+    }).then((docRef) => {
+      console.log('Documento inserido com sucesso: ', docRef.id);
+    }).catch((error) => {
+      console.error('Erro ao adicionar documento: ', error);
+    });
+
+    console.log('Console da pesquisaCollection:', pesquisaCollection);
+  };
+  
+
   const handleNomeChange = (text) => {
-    if (text.length == '') {
-      setErrorMessageNome('Preencha no nome da pesquisa');
+    if (text.length === 0) {
+      setErrorMessageNome('Preencha o nome da pesquisa');
     } else {
       setErrorMessageNome('');
     }
   };
 
   const handleDataChange = (text) => {
-    if (text.length == '') {
+    if (text.length === 0) {
       setErrorMessageData('Preencha a data');
     } else {
       setErrorMessageData('');
@@ -27,7 +48,7 @@ const NovaPesquisa = (props) => {
   };
 
   const goToDrawer = () => {
-    props.navigation.navigate('Drawer')
+    props.navigation.navigate('Drawer');
   };
 
   return (
@@ -51,7 +72,7 @@ const NovaPesquisa = (props) => {
         </View>
 
         <View style={estilos.buttonContainer}>
-          <Botao texto="CADASTRAR" funcao={goToDrawer} />
+          <Botao texto="CADASTRAR" funcao={addPesquisa} />
         </View>
       </View>
     </View>
@@ -59,7 +80,6 @@ const NovaPesquisa = (props) => {
 };
 
 const estilos = StyleSheet.create({
-
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
@@ -74,7 +94,8 @@ const estilos = StyleSheet.create({
     width: '100%',
     marginTop: 10,
     backgroundColor: 'red',
-  },  
+  },
 });
 
+export { pesquisaCollection };
 export default NovaPesquisa;
