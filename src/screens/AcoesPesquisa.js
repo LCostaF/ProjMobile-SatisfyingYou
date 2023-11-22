@@ -4,22 +4,20 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const AcoesPesquisa = (props) => {
 
-    const handleModificarPress = () => {
-        // Ação a ser executada quando "Modificar" for clicado
-        console.log("Modificar clicado!");
-        // Você pode adicionar mais lógica aqui, como navegar para outra tela.
-      };
+    const { pesquisaId } = props.route.params
+
+    console.log('Ações da Pesquisa: ' + pesquisaId)
 
     const goToModificar = () => {
-        props.navigation.navigate('Modificar pesquisa')
+        props.navigation.navigate('Modificar pesquisa', { pesquisaId })
     };
 
     const goToColeta = () => {
-        props.navigation.navigate('Coleta')
+        props.navigation.navigate('Coleta', { pesquisaId })
     };
 
     const goToRelatorio = () => {
-        props.navigation.navigate('Relatório')
+        props.navigation.navigate('Relatório', { pesquisaId })
     };
 
     return (

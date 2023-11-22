@@ -20,11 +20,11 @@ const App = () => {
 
         <Provider store={store}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Login" screenOptions={{headerTintColor: '#FFFFFF', headerStyle: {backgroundColor: '#2B1D62'}}}>
+                <Stack.Navigator initialRouteName="Drawer" screenOptions={{headerTintColor: '#FFFFFF', headerStyle: {backgroundColor: '#2B1D62'}}}>
                     <Stack.Screen options={{headerShown: false}} name = "Login" component={Login} />
                     <Stack.Screen name="Nova Conta" component={NovaConta} />
                     <Stack.Screen options={{headerShown: false}} name="Drawer" component={Drawer} />
-                    <Stack.Screen name="Carnaval" component={AcoesPesquisa} />
+                    <Stack.Screen name="Acoes Pesquisa" component={AcoesPesquisa} />
                     <Stack.Screen name="Nova pesquisa" component={NovaPesquisa} />
                     <Stack.Screen name="Modificar pesquisa" component={ModificarPesquisa} />
                     <Stack.Screen options={{headerShown: false}} name="Coleta" component={Coleta} />

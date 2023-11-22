@@ -1,24 +1,26 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { globalStyles } from "../style/globalStyles";
 
 const Card = (props) => {
 
     const nome = props.nome
     const data = props.data
-    const imagem = props.imagem
+    const urlImagem = props.imagem
 
     return (
-        <View style={[globalStyles.card, styles.backgroundCard]}>
-            <Image source={imagem} style={styles.imagemPesquisa} />
-            <Text style={styles.nomePesquisa}>{nome}</Text>
-            <Text style={styles.dataPesquisa}>{data}</Text>
-        </View>
+        <TouchableOpacity onPress={props.onPress}>
+            <View style={[globalStyles.card, styles.backgroundCard]}>
+                {urlImagem ? <Image source={{ uri: urlImagem }} style={styles.imagemPesquisa} /> : null}
+                <Text style={styles.nomePesquisa}>{nome}</Text>
+                <Text style={styles.dataPesquisa}>{data}</Text>
+            </View>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
-  
+
     imagemPesquisa: {
         width: 100,
         height: 100,
@@ -38,14 +40,17 @@ const styles = StyleSheet.create({
     },
 
     backgroundCard: {
-        flexDirection: 'column',
+        flexDirection: 'colum',
         alignItems: 'center',
         justifyContent: 'center',
         width: 150,
         height: 140,
         borderRadius: 10,
+        marginVertical: 15,
         backgroundColor: '#ffffff',
     },
+
+    
 
 });
 

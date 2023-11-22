@@ -1,17 +1,21 @@
-import { View, Text, Modal, StyleSheet, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, Modal, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useState, useEffect } from "react";
 import Botao from '../components/Botao'
 import Input from '../components/Input';
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { deleteDoc, doc, onSnapshot, query, updateDoc } from "firebase/firestore";
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { pesquisaCollection } from "./NovaPesquisa";
 import { db } from '../config/firebase';
 
 const ModificarPesquisa = (props) => {
 
+  const { pesquisaId } = props.route.params
+
   const [modalVisible, setModalVisible] = useState(false);
   const [nomePesquisa, setNome] = useState('')
   const [data, setData] = useState('')
+  const [urlFoto, setUrlFoto] = useState('');
   const [listaPesquisa, setListaPesquisa] = useState()
 
   //É executada assim que a tela é aberta
@@ -32,26 +36,58 @@ const ModificarPesquisa = (props) => {
     }) //Executa uma determinada consulta dentro da coleção pesquisa
   }, []) //Executa a função usereffect, somente uma única vez dentro da tela
 
-  const atualizarPesquisa = (id) => {
-    const pesquisaRef = doc(db, "pesquisa", id)
+  const capturarImagem = () => {
+    {/* Abre a câmera */}
+    { /*launchCamera({ mediaType: 'photo', cameraType: 'front', quality: 1 }) */}
+    launchImageLibrary()
+      .then(
+        (result) => {
+          setUrlFoto(result.assets[0].uri)
+          setFoto(result.assets[0])
+        }
+      )
+      .catch( (errr) => {
+        console.log('Erro ao capturar a imagem: ' + JSON.stringify(error))
+      })
+  }
 
-    updateDoc(pesquisaRef, {
-      nome: nomePesquisa,
-      data: data,
-      //imagem: image,
-    })
+  const atualizarPesquisa = async (id) => {
+    const pesquisaRef = doc(db, "pesquisa", id);
+  
+    // Cria um objeto com os campos a serem atualizados
+    const updateFields = {};
+    if (nomePesquisa !== '') {
+      updateFields.nome = nomePesquisa;
+    }
+    if (data !== '') {
+      updateFields.data = data;
+    }
+    if (urlFoto !== '') {
+      updateFields.imageUrl = urlFoto;
+    }
+  
+    try {
+      if (Object.keys(updateFields).length > 0) {
+        await updateDoc(pesquisaRef, updateFields);
+      }
+      goToDrawer();
+    } catch (error) {
+      console.error("Erro ao atualizar pesquisa:", error);
+    }
   };
+  
 
   const deletePesquisa = (id) => {
     deleteDoc(doc(db, "pesquisa", id))
+    goToDrawer();
   }
 
   const goToDrawer = () => {
     props.navigation.navigate('Drawer')
   };
 
-  const goToCarnaval = () => {
-    props.navigation.navigate('Carnaval')
+  const goToAcoesPesquisa = () => {
+    props.navigation.navigate('Acoes Pesquisa', { pesquisaId });
   };
 
   return (
@@ -63,11 +99,11 @@ const ModificarPesquisa = (props) => {
               <Text style={estilos.modalTitle}>Tem certeza de apagar essa pesquisa?</Text>
 
               <View style={estilos.modalButtonContainer}>
-                <TouchableOpacity style={estilos.modalButtonSim} onPress={() => { setModalVisible(false); deletePesquisa('bUODF2tTtDJht6aAgz6U'); goToDrawer(); }}>
+                <TouchableOpacity style={estilos.modalButtonSim} onPress={() => { setModalVisible(false); deletePesquisa(pesquisaId); goToDrawer(); }}>
                   <Text style={estilos.buttonText}>SIM</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={estilos.modalButtonCancelar} onPress={() => { setModalVisible(false); goToCarnaval(); }}>
+                <TouchableOpacity style={estilos.modalButtonCancelar} onPress={() => { setModalVisible(false); goToAcoesPesquisa(pesquisaId); }}>
                   <Text style={estilos.buttonText}>CANCELAR</Text>
                 </TouchableOpacity>
               </View>
@@ -88,14 +124,13 @@ const ModificarPesquisa = (props) => {
         />
 
         <Text style={estilos.titulo}>Imagem</Text>
-        <View style={estilos.cImagem}>
-          <Icon name="celebration" size={50} color="#C60EB3" />
-        </View>
+        { urlFoto ? <Image source={ {uri: urlFoto} } style={ {width: 100, height: 100} } /> : null }
+        <Botao style={estilos.cImagem} texto="Capturar imagem" funcao={capturarImagem} />
 
       </View>
       <View style={estilos.cBotoes}>
         <View style={estilos.salvar}>
-          <Botao texto="SALVAR" funcao={atualizarPesquisa('RNxnIUUGWkMDbi8aJ54V')} />
+          <Botao texto="SALVAR" funcao={() => atualizarPesquisa(pesquisaId)} />
         </View>
         <View style={estilos.deletar}>
           <TouchableOpacity onPress={() => setModalVisible(true)}>
