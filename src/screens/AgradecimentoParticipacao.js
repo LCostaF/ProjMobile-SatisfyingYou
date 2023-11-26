@@ -4,11 +4,13 @@ import { globalStyles } from '../style/globalStyles';
 
 const AgradecimentoParticipacao = (props) => {
 
+    const { pesquisaId } = props.route.params
+
     useEffect(() => {
         // Configura um timer de 3 segundos
         const timer = setTimeout(() => {
           // Navega para a tela 'Coleta' após 3 segundos
-          props.navigation.navigate('Coleta');
+          props.navigation.navigate('Coleta', { pesquisaId })
         }, 3000); // 3000 milissegundos (3 segundos)
     
         // Limpa o timer quando o componente for desmontado

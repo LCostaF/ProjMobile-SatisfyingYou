@@ -29,7 +29,6 @@ const AcoesPesquisa = (props) => {
                     <Text style={styles.title}>Modificar</Text>
                 </TouchableOpacity>
                 
-                
                 <TouchableOpacity style={[globalStyles.card, styles.backgroundCard]} onPress={goToColeta}>
                     <Icon name="library-add-check" size={80} color="#ffffff" />
                     <Text style={styles.title}>Coletar dados</Text>
@@ -39,6 +38,7 @@ const AcoesPesquisa = (props) => {
                     <Icon name="donut-large" size={80} color="#ffffff" />
                     <Text style={styles.title}>Relatório</Text>
                 </TouchableOpacity>
+                
             </View>
         </View>
     )

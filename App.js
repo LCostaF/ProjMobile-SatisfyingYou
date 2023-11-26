@@ -6,6 +6,7 @@ import AcoesPesquisa from "./src/screens/AcoesPesquisa";
 import AgradecimentoParticipacao from "./src/screens/AgradecimentoParticipacao";
 import RecuperarSenha from "./src/screens/RecuperarSenha";
 import Drawer from "./src/screens/Drawer";
+import Home from "./src/screens/Home";
 import NovaPesquisa from "./src/screens/NovaPesquisa";
 import ModificarPesquisa from "./src/screens/ModificarPesquisa";
 import Relatorio from "./src/screens/Relatorio";
@@ -20,7 +21,7 @@ const App = () => {
 
         <Provider store={store}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Relatório" screenOptions={{headerTintColor: '#FFFFFF', headerStyle: {backgroundColor: '#2B1D62'}}}>
+                <Stack.Navigator initialRouteName="Home" screenOptions={{headerTintColor: '#FFFFFF', headerStyle: {backgroundColor: '#2B1D62'}}}>
                     <Stack.Screen options={{headerShown: false}} name = "Login" component={Login} />
                     <Stack.Screen name="Nova Conta" component={NovaConta} />
                     <Stack.Screen options={{headerShown: false}} name="Drawer" component={Drawer} />
@@ -28,6 +29,7 @@ const App = () => {
                     <Stack.Screen name="Nova pesquisa" component={NovaPesquisa} />
                     <Stack.Screen name="Modificar pesquisa" component={ModificarPesquisa} />
                     <Stack.Screen options={{headerShown: false}} name="Coleta" component={Coleta} />
+                    <Stack.Screen name="Home" component={Home} />
                     <Stack.Screen name="Relatório" component={Relatorio} />
                     <Stack.Screen name="Recuperação de senha" component={RecuperarSenha} />
                     <Stack.Screen options={{headerShown: false}} name="Agradecimento" component={AgradecimentoParticipacao} />
